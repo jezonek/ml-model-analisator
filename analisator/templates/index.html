@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+{% load tz %}
+
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        {% if user.is_authenticated %}
+        <!-- Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {% for ml_model in object_list %}
+            <div class="card mb-4 border-0">
+                <div class="card-body">
+                    <h2 class="card-title">{{ ml_model.name }}</h2>
+                    <p class="card-text text-muted h6">{{ ml_model.uploaded_by }} | {{ ml_model.uploaded_on|localtime}} </p>
+                    <a href="{% url 'ml_model_detail' ml_model.slug  %}" class="btn btn-primary">Details &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+
+            <div class="card mb-4 border-0">
+                <div class="card-body">
+                    <h2 class="card-title">You are not logged in</h2>
+                    <p class="card-text text-muted h6">Access denied </p>
+                    
+                </div>
+            </div>
+        
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% if is_paginated %}
+  <nav aria-label="Page navigation conatiner"></nav>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+    {% endif %}
+  </ul>
+  </nav>
+</div>
+{% endif %}
+
+{%endblock%}

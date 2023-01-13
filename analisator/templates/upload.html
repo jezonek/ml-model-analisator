@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 card mb-4  mt-3 left top">
+            <div class="card-body">
+                <div class="card-header">Upload the model</div>
+            
+                <form method="POST" class="post-form" enctype="multipart/form-data">  
+                            {% csrf_token %}  
+                            {{ form.as_p }}  
+                            <button type="submit" class="save btn btn-default">Save</button>  
+                    </form>  
+                </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock content %}
